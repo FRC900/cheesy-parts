@@ -1,0 +1,50 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Project:</b>
+  <%= @order.project %>
+</p>
+
+<p>
+  <b>Vendor name:</b>
+  <%= @order.vendor_name %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%= @order.status %>
+</p>
+
+<p>
+  <b>Ordered at:</b>
+  <%= @order.ordered_at %>
+</p>
+
+<p>
+  <b>Paid for by:</b>
+  <%= @order.paid_for_by %>
+</p>
+
+<p>
+  <b>Tax cost:</b>
+  <%= @order.tax_cost %>
+</p>
+
+<p>
+  <b>Shipping cost:</b>
+  <%= @order.shipping_cost %>
+</p>
+
+<p>
+  <b>Notes:</b>
+  <%= @order.notes %>
+</p>
+
+<p>
+  <b>Reimbursed:</b>
+  <%= @order.reimbursed %>
+</p>
+
+
+<%= link_to 'Edit', edit_order_path(@order) %> |
+<%= link_to 'Back', orders_path %>

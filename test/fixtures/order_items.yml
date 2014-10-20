@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  project: 
+  order: 
+  quantity: 1
+  part_number: MyString
+  description: MyString
+  unit_cost: 9.99
+  notes: MyText
+
+two:
+  project: 
+  order: 
+  quantity: 1
+  part_number: MyString
+  description: MyString
+  unit_cost: 9.99
+  notes: MyText

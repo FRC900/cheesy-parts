@@ -1,0 +1,70 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Part number:</b>
+  <%= @part.part_number %>
+</p>
+
+<p>
+  <b>Project:</b>
+  <%= @part.project %>
+</p>
+
+<p>
+  <b>Part type:</b>
+  <%= @part.part_type %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%= @part.name %>
+</p>
+
+<p>
+  <b>Part:</b>
+  <%= @part.part %>
+</p>
+
+<p>
+  <b>Notes:</b>
+  <%= @part.notes %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%= @part.status %>
+</p>
+
+<p>
+  <b>Source material:</b>
+  <%= @part.source_material %>
+</p>
+
+<p>
+  <b>Have material:</b>
+  <%= @part.have_material %>
+</p>
+
+<p>
+  <b>Quantity:</b>
+  <%= @part.quantity %>
+</p>
+
+<p>
+  <b>Cut length:</b>
+  <%= @part.cut_length %>
+</p>
+
+<p>
+  <b>Priority:</b>
+  <%= @part.priority %>
+</p>
+
+<p>
+  <b>Drawing created:</b>
+  <%= @part.drawing_created %>
+</p>
+
+
+<%= link_to 'Edit', edit_part_path(@part) %> |
+<%= link_to 'Back', parts_path %>

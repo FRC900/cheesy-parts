@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @project.name %>
+</p>
+
+<p>
+  <b>Part number prefix:</b>
+  <%= @project.part_number_prefix %>
+</p>
+
+<p>
+  <b>Hide dashboards:</b>
+  <%= @project.hide_dashboards %>
+</p>
+
+
+<%= link_to 'Edit', edit_project_path(@project) %> |
+<%= link_to 'Back', projects_path %>

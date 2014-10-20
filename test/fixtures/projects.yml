@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: 
+  part_number_prefix: 
+  hide_dashboards: false
+
+two:
+  name: 
+  part_number_prefix: 
+  hide_dashboards: false

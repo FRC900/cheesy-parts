@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  project: 
+  vendor_name: MyString
+  status: MyString
+  ordered_at: 2014-10-20 14:51:10
+  paid_for_by: 
+  tax_cost: 9.99
+  shipping_cost: 9.99
+  notes: MyText
+  reimbursed: 1
+
+two:
+  project: 
+  vendor_name: MyString
+  status: MyString
+  ordered_at: 2014-10-20 14:51:10
+  paid_for_by: 
+  tax_cost: 9.99
+  shipping_cost: 9.99
+  notes: MyText
+  reimbursed: 1
