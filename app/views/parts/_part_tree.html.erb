@@ -1,0 +1,5 @@
+<% if part.part %>
+  <%= render "part_tree", :part => part.part if part.part %>
+  <%=fa_icon('chevron-right fw')%>
+<% end %>
+<%=link_to part.name, part%>

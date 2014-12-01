@@ -12,4 +12,21 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require twitter/bootstrap
 //= require_tree .
+
+function remove_fields(link) {
+  $(link).prev("input[type=hidden]").val("1");
+  $(link).closest("tr").hide();
+}
+
+function add_fields(link, association, content) {
+  var new_id = new Date().getTime();
+  var regexp = new RegExp("new_" + association, "g");
+  var children = $(link).parent().children();
+  var table = $(link).parent().children('table');
+  var body = table.children('tbody:first');
+  var row = body.children('tr:last');
+  
+  body.append(content.replace(regexp, new_id));
+}

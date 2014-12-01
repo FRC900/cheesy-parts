@@ -1,20 +1,19 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <b>Name:</b>
-  <%= @project.name %>
-</p>
-
-<p>
-  <b>Part number prefix:</b>
-  <%= @project.part_number_prefix %>
-</p>
-
-<p>
-  <b>Hide dashboards:</b>
-  <%= @project.hide_dashboards %>
-</p>
-
-
-<%= link_to 'Edit', edit_project_path(@project) %> |
-<%= link_to 'Back', projects_path %>
+<% if current_user.can_edit? %>
+    <div class="pull-right" style="margin-top: 15px;">
+		<%=link_to "#{fa_icon('cog fw')} New Part".html_safe, new_part_path(:type=>"Part", :project=>@project.id), :class=>"btn btn-success btn-small"%>
+		<%=link_to "#{fa_icon('th fw')} New Assembly".html_safe, new_part_path(:type=>"Assembly", :project=>@project.id), :class=>"btn btn-success btn-small"%>
+    </div>
+  <% end %>
+  <h3><b><%= @project.name %> - All Parts & Assemblies</b></h3>
+  <%=render "parts_list", :parts => Part.where(:project_id => @project.id).order(@part_sort) %>
+  <hr>
+  <div class="row">
+    <div class="span3">
+        <span class="label label-info">Project Prefix</span> <%= @project.part_number_prefix %><br /><br />
+    </div>
+    <% if current_user.can_administer? %>
+      <div class="pull-right">
+		<%=link_to "#{fa_icon('pencil fw')} Edit this project".html_safe, edit_part_path(@project), :class=>"btn btn-primary btn-small"%>
+  		<%=link_to "#{fa_icon('trash fw')} Delete this project".html_safe, @project, method: :delete, data: { confirm: 'Are you sure?' } , :class=>"btn btn-danger btn-small" %>
+      </div>
+<% end %>

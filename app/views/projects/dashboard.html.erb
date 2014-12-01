@@ -1,0 +1,7 @@
+<%=form_tag dashboard_project_path(@project), :id=>"filter" do%>
+	<%=select_tag(:status,options_for_select((Part::STATUS_MAP).invert, :selected=>params[:status]), onchange: "$('#filter').submit();", :prompt => "Filter by Part...")%>
+<%end%>
+<h2><%= @project.name %></h2>
+<div id="dashboard-parts">
+    <%= render "dashboard_parts" %>
+</div>

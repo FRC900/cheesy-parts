@@ -1,0 +1,138 @@
+<div class="row">
+	<% if current_user.can_edit? %>
+	      <div class="pull-right" style="margin-top: 15px;">
+			  <%=link_to "New Order",new_order_path(:project_id=>@project.id), :class=>"btn btn-success btn-small"%>
+	      </div>
+	<% end %>
+</div>
+<br />
+<% unless @no_vendor_order_items.empty? %>
+    <h2>Unclassified items</h2>
+    <%= render "order_items_list", :order_items => @no_vendor_order_items, :order => nil  %>
+<% end %>
+
+<div class="row">
+	<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+	  <div class="panel panel-default">
+	    <div class="panel-heading" role="tab" id="headingOpen">
+	      <h4 class="panel-title">
+	        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOpen" aria-expanded="true" aria-controls="collapseOpen">
+	          Open Orders
+	        </a>
+	      </h4>
+	    </div>
+	    <div id="collapseOpen" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingOpen">
+	      <div class="panel-body">
+			  <% @open_orders.each do |order| %>
+			    	<h2>
+			    	 	<%=link_to "#{order.vendor_name} #{order.ordered_at.strftime("%F") rescue ""} <span class=\"label label-status-#{order.status}\"> #{Order::STATUS_MAP[order.status]} </span>".html_safe, edit_order_path(order), :style=>"color: black;"%>
+			  	</h2>
+			      <%=render "order_items_list", :order_items => order.order_items, :order => order  %>
+			  <% end %>
+	      </div>
+	    </div>
+	  </div>
+	  <div class="panel panel-default">
+	    <div class="panel-heading" role="tab" id="headingOrdered">
+	      <h4 class="panel-title">
+	        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOrdered" aria-expanded="true" aria-controls="collapseOrdered">
+	          Ordered Orders
+	        </a>
+	      </h4>
+	    </div>
+	    <div id="collapseOrdered" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingOrdered">
+	      <div class="panel-body">
+			  <% @ordered_orders.each do |order| %>
+			    	<h2>
+			    	 	<%=link_to "#{order.vendor_name} #{order.ordered_at.strftime("%F") rescue ""} <span class=\"label label-status-#{order.status}\"> #{Order::STATUS_MAP[order.status]} </span>".html_safe, edit_order_path(order), :style=>"color: black;"%>
+			  	</h2>
+			      <%=render "order_items_list", :order_items => order.order_items, :order => order  %>
+			  <% end %>
+	      </div>
+	    </div>
+	  </div>
+	  <div class="panel panel-default">
+	    <div class="panel-heading" role="tab" id="headingReceived">
+	      <h4 class="panel-title">
+	        <a data-toggle="collapse" data-parent="#accordion" href="#collapseReceived" aria-expanded="true" aria-controls="collapseReceived">
+	          Received Orders
+	        </a>
+	      </h4>
+	    </div>
+	    <div id="collapseReceived" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingReceived">
+	      <div class="panel-body">
+			  <% @received_orders.each do |order| %>
+			    	<h2>
+			    	 	<%=link_to "#{order.vendor_name} #{order.ordered_at.strftime("%F") rescue ""} <span class=\"label label-status-#{order.status}\"> #{Order::STATUS_MAP[order.status]} </span>".html_safe, edit_order_path(order), :style=>"color: black;"%>
+			  	</h2>
+			      <%=render "order_items_list", :order_items => order.order_items, :order => order  %>
+			  <% end %>
+	      </div>
+	    </div>
+	  </div>
+	  <div class="panel panel-default">
+	    <div class="panel-heading" role="tab" id="headingTotals">
+	      <h4 class="panel-title">
+	        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTotals" aria-expanded="true" aria-controls="collapseTotals">
+	          Totals and Statistics
+	        </a>
+	      </h4>
+	    </div>
+	    <div id="collapseTotals" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingTotals">
+	      <div class="panel-body">
+			  <h2>Orders by Vendor</h2>
+			    <table class="table table-striped table-condensed table-bordered">
+			      <tr>
+			        <th>Vendor</th>
+			        <th># of Orders</th>
+			        <th># of Line Items</th>
+			        <th>Total Spent</th>
+			        <th>Total Tax</th>
+			        <th>Total Shipping</th>
+			      </tr>
+			      <% @orders_by_vendor.each_pair do |vendor, orders| %>
+			        <tr>
+			          <td>
+			              <%= vendor%>
+			          </td>
+			          <td><%= orders.size %></td>
+			          <td><%= orders.inject(0) { |sum, order| sum + order.order_items.size } %></td>
+			          <td><%= "$%.2f" % orders.inject(0) { |sum, order| sum + order.total_cost } %></td>
+			          <td><%= "$%.2f" % orders.inject(0) { |sum, order| sum + order.tax_cost.to_f } %></td>
+			          <td><%= "$%.2f" % orders.inject(0) { |sum, order| sum + order.shipping_cost.to_f } %></td>
+			        </tr>
+			      <% end %>
+			      <tr>
+			        <th>Total</th>
+			          <th><%= @orders.size %></th>
+			          <th><%= @orders.inject(0) { |sum, order| sum + order.order_items.size } %></th>
+			          <th><%= "$%.2f" % @orders.inject(0) { |sum, order| sum + order.total_cost } %></th>
+			          <th><%= "$%.2f" % @orders.inject(0) { |sum, order| sum + order.tax_cost.to_f } %></th>
+			          <th><%= "$%.2f" % @orders.inject(0) { |sum, order| sum + order.shipping_cost.to_f } %></th>
+			      </tr>
+			    </table>
+
+			    <h2>Orders by Purchaser</h2>
+			    <table class="table table-striped table-condensed table-bordered">
+			      <tr>
+			        <th>Purchaser</th>
+			        <th>Amount Reimbursed</th>
+			        <th>Amount Outstanding</th>
+			        <th>Total Spent</th>
+			      </tr>
+			      <% @orders_by_purchaser.each_pair do |purchaser, stats| %>
+			        <tr>
+			          <td>
+			              <%= purchaser.empty? ? "<i>Unspecified</i>".html_safe : purchaser %>
+			          </td>
+			          <td><%= "$%.2f" % stats[:reimbursed] %></td>
+			          <td><%= "$%.2f" % stats[:outstanding] %></td>
+			          <td><%= "$%.2f" % (stats[:reimbursed] + stats[:outstanding]) %></td>
+			        </tr>
+			      <% end %>
+			    </table>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+</div>

@@ -1,5 +1,24 @@
-<h1>New part</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Back', parts_path %>
+<h2>Create New <%= params[:type].capitalize %></h2>
+<%= form_for(@part) do |f| %>
+	<%=f.hidden_field :part_type, :value=>params[:type]%>
+	<%=f.hidden_field :project_id, :value=>params[:project]%>
+    <label>Project</label>
+    <input type="text" disabled value="<%= @project.name %>" />
+    <%=f.hidden_field :project_id, :value=>params[:project]%>
+    <label></label>
+    <div class="field">
+      <%= f.label "#{params[:type].capitalize} Name" %><br />
+      <%= f.text_field :name %>
+    </div>
+    <div class="field">
+      	<%= f.label "Parent Assembly" %><br />
+	  	<%if params[:part]%>
+      		<%= f.collection_select(:part_id, @project.parts.where('lower(part_type) = ?',"assembly"),:id,:display_name, {:selcted=>params[:part], :include_blank=>true}) %>
+		<%else%>
+			<%= f.collection_select(:part_id, @project.parts.where('lower(part_type) = ?',"assembly"),:id,:display_name,{:include_blank=>true}) %>
+		<%end%>
+    </div>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+<% end %>

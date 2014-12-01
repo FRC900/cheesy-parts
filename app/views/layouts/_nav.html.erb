@@ -1,0 +1,22 @@
+<%= nav_bar :responsive => true, :fixed => :top,:brand => "Cheesy Parts", :inverse=>true do%>
+	<% if current_user %>
+		<%= menu_group do %>
+        	<%= menu_item "#{fa_icon('th fw fa-large')} Projects".html_safe, projects_path%>
+           	<%= menu_item "#{fa_icon('list-alt fw ')} Dashboards".html_safe, dashboard_path%>
+			<%= menu_item "#{fa_icon('shopping-cart fw ')} Orders".html_safe, orders_path%>
+            <% if current_user.can_administer? %>
+				<%= menu_item "#{fa_icon('th-list fw ')} Users".html_safe, users_path %>
+            <% end %>
+		<%end%>
+		<%= menu_group :pull => :right do%>
+			<%= drop_down "#{fa_icon('user fw')} #{current_user.first_name} #{current_user.last_name}".html_safe do %>
+				<%= menu_item "#{fa_icon('power-off fw ')} Logout".html_safe, log_out_path %>
+			<%end%>
+		<%end%>
+	<%else%>
+		<%= menu_group :pull => :right do%>
+			<%= menu_item "#{fa_icon('power-off fw ')} Login".html_safe, log_in_path%>
+			<%= menu_item "#{fa_icon('users fw ')} Register".html_safe, sign_up_path%>
+		<%end%>
+	<% end %>
+<%end%>

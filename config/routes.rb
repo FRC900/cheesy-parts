@@ -9,10 +9,21 @@ CheesyParts::Application.routes.draw do
   get "log_out" => "sessions#destroy", :as => "log_out"
   get "log_in" => "sessions#new", :as => "log_in"
   get "sign_up" => "users#new", :as => "sign_up"
+  get "dashboard" => "welcome#dashboard", :as=> "dashboard"
 
   resources :users
   resources :sessions
 
+  get "projects/:project_id/dashboard" => "projects#dashboard", :as=> "dashboard_project"
+  post "projects/:project_id/dashboard" => "projects#dashboard", :as=> "dashboard_project"
+
+
+  # Project order routes
+  get "projects/:project_id/orders/open" => "projects#open_orders", :as=> "open_orders_project"
+  get "projects/:project_id/orders/ordered" => "projects#ordered_orders", :as=> "ordered_orders_project"
+  get "projects/:project_id/orders/complete" => "projects#complete_orders", :as=> "complete_orders_project"
+  get "projects/:project_id/orders/stats" => "projects#stats_orders", :as=> "stats_orders_project"
+  get "projects/:project_id/orders/:order_id" => "projects#edit_order", :as=> "edit_orders_project"
 
 
   # The priority is based upon order of creation:
@@ -64,7 +75,7 @@ CheesyParts::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => 'welcome#index'
+  root :to => 'welcome#dashboard'
 
   # See how all your routes lay out with "rake routes"
 

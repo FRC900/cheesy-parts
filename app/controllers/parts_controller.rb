@@ -25,7 +25,7 @@ class PartsController < ApplicationController
   # GET /parts/new.json
   def new
     @part = Part.new
-
+    @project = Project.find_by_id(params[:project])
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @part }

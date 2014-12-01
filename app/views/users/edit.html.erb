@@ -1,6 +1,38 @@
-<h1>Editing user</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Show', @user %> |
-<%= link_to 'Back', users_path %>
+<h2>Edit User</h2>
+<%= form_for(@user) do |f| %>
+	<div class="field">
+		<%= f.label :email %><br />
+		<%= f.text_field :email %>
+	</div>
+	<div class="field">
+		<%= f.label :first_name %><br />
+		<%= f.text_field :first_name %>
+	</div>
+	<div class="field">
+		<%= f.label :last_name %><br />
+		<%= f.text_field :last_name %>
+	</div>
+  	<p>
+	    <%= f.label :password %><br />
+	    <%= f.password_field :password %>
+	</p>
+	<p>
+	    <%= f.label :password_confirmation %><br />
+	    <%= f.password_field :password_confirmation %>
+  	</p>
+	<div class="field">
+		<%= f.label :permission %><br />
+	    <select name="permission">
+	      <% User::PERMISSION_MAP.each_pair do |key, value| %>
+	        <option value=<%= key %><% if @user.permission == key %> selected<% end %>><%= value %></option>
+	      <% end %>
+	    </select>
+	</div>
+	<div class="field">
+		<%= f.label :enabled %><br />
+		<%= f.check_box :enabled %>
+	</div>
+    <div class="actions">
+      <%= f.submit "Submit", :class=>"btn btn-primary btn-medium" %>
+    </div>
+<%end%>

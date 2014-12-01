@@ -1,5 +1,15 @@
-<h1>New project</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Back', projects_path %>
+<h2>Create New Project</h2>
+<%= form_for(@project) do |f| %>
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :part_number_prefix %><br />
+    <%= f.text_field :part_number_prefix %>
+  </div>
+  <%=f.hidden_field :hide_dashboards, :value=>false%>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

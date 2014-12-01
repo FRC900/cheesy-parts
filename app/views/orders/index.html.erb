@@ -1,39 +1,20 @@
-<h1>Listing orders</h1>
+<div class="row">
+	<div class="span2">
+    	<h2>Orders</h2>
+    </div>
+</div>
 
-<table>
-  <tr>
-    <th>Project</th>
-    <th>Vendor name</th>
-    <th>Status</th>
-    <th>Ordered at</th>
-    <th>Paid for by</th>
-    <th>Tax cost</th>
-    <th>Shipping cost</th>
-    <th>Notes</th>
-    <th>Reimbursed</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @orders.each do |order| %>
-  <tr>
-    <td><%= order.project %></td>
-    <td><%= order.vendor_name %></td>
-    <td><%= order.status %></td>
-    <td><%= order.ordered_at %></td>
-    <td><%= order.paid_for_by %></td>
-    <td><%= order.tax_cost %></td>
-    <td><%= order.shipping_cost %></td>
-    <td><%= order.notes %></td>
-    <td><%= order.reimbursed %></td>
-    <td><%= link_to 'Show', order %></td>
-    <td><%= link_to 'Edit', edit_order_path(order) %></td>
-    <td><%= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
+<% Project.where(:hide_dashboards => false).each do |project| %>
+	<div class="well">
+    	<li>
+			<h4>
+				<%=link_to "#{project.name} - Orders", open_orders_project_path(project)%>
+    	  	</h4>
+		</li>
+    	<li>
+			<h4>
+				<%=link_to "#{project.name} - Order totals and statistics", stats_orders_project_path(project)%>
+    		</h4>
+		</li>
+	</div>
 <% end %>
-</table>
-
-<br />
-
-<%= link_to 'New Order', new_order_path %>

@@ -1,0 +1,14 @@
+<div class="row">
+	<div class="span2">
+		<h2>Dashboards</h2>
+	</div>
+</div>
+<div class="well">
+	<% Project.where(:hide_dashboards => false).each do |project| %>
+		<li>
+			<h4>
+				<%=link_to "#{project.name} - Parts in progress", dashboard_project_path(project)%>
+		  	</h4>
+		</li>
+	<% end %>
+</div>

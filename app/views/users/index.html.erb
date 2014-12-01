@@ -1,27 +1,43 @@
-<h1>Listing users</h1>
-
-<table>
-  <tr>
-    <th>Email</th>
-    <th>Password hash</th>
-    <th>Password salt</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @users.each do |user| %>
-  <tr>
-    <td><%= user.email %></td>
-    <td><%= user.password_hash %></td>
-    <td><%= user.password_salt %></td>
-    <td><%= link_to 'Show', user %></td>
-    <td><%= link_to 'Edit', edit_user_path(user) %></td>
-    <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
-</table>
-
-<br />
-
-<%= link_to 'New User', new_user_path %>
+ <div class="pull-right" style="margin-top: 15px;">
+	 <%=link_to "#{fa_icon('user fw')} New User".html_safe, new_user_path, :class=>"btn btn-success btn-small" %>
+  </div>
+  <h2>Active Users</h2>
+  <table  class="table table-striped table-condensed table-bordered">
+    <tr>
+      <th>E-mail</th>
+      <th>Name</th>
+      <th>Permission</th>
+      <th>Action</th>
+    </tr>
+    <% User.where(:enabled => true).order(:last_name).order(:first_name).each do |user| %>
+      <tr>
+        <td><%= user.email %></td>
+        <td><%= user.first_name %> <%= user.last_name %></td>
+        <td><%= User::PERMISSION_MAP[user.permission] %></td>
+        <td>
+			<%=link_to fa_icon('pencil fw'), edit_user_path(user), :class=>"btn btn-primary btn-small" %>
+			<%=link_to fa_icon('trash fw'), user, method: :delete, data: { confirm: 'Are you sure?' } , :class=>"btn btn-danger btn-small" %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+  <h2>Disabled/Pending Users</h2>
+  <table  class="table table-striped table-condensed table-bordered">
+    <tr>
+      <th>E-mail</th>
+      <th>Name</th>
+      <th>Permission</th>
+      <th>Action</th>
+    </tr>
+    <% User.where(:enabled => false).order(:last_name).order(:first_name).each do |user| %>
+      <tr>
+        <td><%= user.email %></td>
+        <td><%= user.first_name %> <%= user.last_name %></td>
+        <td><%= User::PERMISSION_MAP[user.permission] %></td>
+        <td>
+		<%=link_to fa_icon('pencil fw'), edit_user_path(user), :class=>"btn btn-primary btn-small" %>
+		<%=link_to fa_icon('trash fw'), user, method: :delete, data: { confirm: 'Are you sure?' } , :class=>"btn btn-danger btn-small" %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
