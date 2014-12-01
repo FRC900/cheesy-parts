@@ -3,7 +3,12 @@
 		<%= menu_group do %>
         	<%= menu_item "#{fa_icon('th fw fa-large')} Projects".html_safe, projects_path%>
            	<%= menu_item "#{fa_icon('list-alt fw ')} Dashboards".html_safe, dashboard_path%>
-			<%= menu_item "#{fa_icon('shopping-cart fw ')} Orders".html_safe, orders_path%>
+			<%= drop_down "#{fa_icon('shopping-cart fw')} Orders".html_safe do %>
+			
+				<%Project.all.each do |proj|%>
+					<%= menu_item "#{fa_icon('shopping-cart fw ')} #{proj.name}".html_safe, open_orders_project_path(proj) %>
+				<%end%>
+			<%end%>
             <% if current_user.can_administer? %>
 				<%= menu_item "#{fa_icon('th-list fw ')} Users".html_safe, users_path %>
             <% end %>
