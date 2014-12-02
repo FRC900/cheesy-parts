@@ -22,11 +22,7 @@
   	</p>
 	<div class="field">
 		<%= f.label :permission %><br />
-	    <select name="permission">
-	      <% User::PERMISSION_MAP.each_pair do |key, value| %>
-	        <option value=<%= key %><% if @user.permission == key %> selected<% end %>><%= value %></option>
-	      <% end %>
-	    </select>
+		<%= f.select :permission, options_for_select((User::PERMISSION_MAP).invert),{}, {:class=>"form-control" }%>
 	</div>
 	<div class="field">
 		<%= f.label :enabled %><br />
