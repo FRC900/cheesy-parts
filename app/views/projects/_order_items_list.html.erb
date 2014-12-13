@@ -34,14 +34,16 @@
     <% end %>
     <% if order %>
       <tr>
-        <th colspan="2">Purchaser</th>
+        <th>Purchaser</th>
+		<th>Receipt</th>
         <th>Subtotal</th>
         <th>Tax</th>
         <th>Shipping</th>
         <th colspan="3">Total</th>
       </tr>
       <tr>
-        <td colspan="2"><%= order.paid_for_by %></td>
+        <td><%= order.paid_for_by %></td>
+		<td><%=order.receipt_name%></td>
         <td><%= "$%.2f" % order.subtotal %></td>
         <td><%= "$%.2f" % order.tax_cost.to_f %></td>
         <td><%= "$%.2f" % order.shipping_cost.to_f %></td>
