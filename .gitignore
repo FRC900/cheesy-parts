@@ -3,4 +3,4 @@
 vendor
 log/*
 tmp/*
-db/*.sqlite3
+*.sqlite3
