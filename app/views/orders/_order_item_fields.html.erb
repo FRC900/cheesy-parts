@@ -9,8 +9,8 @@
 		</td>
 	  	<td><%= f.text_field :part_number %></td>
 	  	<td><%= f.text_field :description %></td>
-	  	<td><%= f.number_field :unit_cost, :value => (number_with_precision(f.object.unit_cost, :precision => 2) || 0 )%></td>
-		<%cost = f.object.quantity*f.object.unit_cost rescue 0%>
+	  	<td><%= f.number_field :unit_cost, :value => (number_with_precision(f.object.unit_cost, :precision => 2) || 0 ), :step=>0.01%></td>
+		<%cost = number_with_precision(f.object.quantity*f.object.unit_cost,:precision => 2) rescue 0%>
 		<td><%= text_field_tag :total_cost, cost, :readonly=>true %></td>
 	  	<td><%= f.text_field :notes %></td>
 	  	<td><%= link_to_remove_fields "remove", f %></td>
